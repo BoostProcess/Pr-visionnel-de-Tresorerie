@@ -22,6 +22,7 @@ IMPORT_ORDER = [
     "commandes_fournisseurs",
     "avoirs",
     "historique",
+    "fec",
 ]
 
 
@@ -39,6 +40,12 @@ class ImportService:
         self, file_path: str, file_type: str, encoding: str | None = None
     ) -> LotImport:
         """Importe un fichier complet. Retourne le lot d'import."""
+        # Import FEC : traitement spécifique
+        if file_type == "fec":
+            from app.imports.fec_importer import FECImporter
+            fec = FECImporter(self._session)
+            return fec.import_file(file_path, encoding)
+
         # Créer le lot d'import
         lot = LotImport(
             nom_fichier=file_path,

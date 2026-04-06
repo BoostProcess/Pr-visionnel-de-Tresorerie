@@ -19,6 +19,7 @@ FILE_TYPE_LABELS = {
     "commandes_fournisseurs": "Commandes fournisseurs",
     "avoirs": "Avoirs",
     "historique": "Historique de facturation",
+    "fec": "FEC (Fichier des Écritures Comptables)",
 }
 
 
@@ -41,7 +42,10 @@ def _render_import_form(session):
 
     st.info(
         "**Ordre d'import recommandé :** Clients → Fournisseurs → "
-        "Factures → Commandes → Avoirs → Historique"
+        "Factures → Commandes → Avoirs → Historique\n\n"
+        "**FEC :** Vous pouvez aussi importer un fichier FEC (TXT tabulé) "
+        "qui extraira automatiquement les factures clients et fournisseurs "
+        "ouvertes. Les tiers seront créés automatiquement si nécessaire."
     )
 
     file_type = st.selectbox(

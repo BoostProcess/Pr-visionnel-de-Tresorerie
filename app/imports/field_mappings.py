@@ -83,6 +83,29 @@ HISTORIQUE_FIELDS = {
     "DelaiMoyen": "delai_paiement_moyen_jours",
 }
 
+# FEC (Fichier des Écritures Comptables) - format réglementaire
+# Fichier TXT tabulé, colonnes standardisées par l'administration fiscale
+FEC_FIELDS = {
+    "JournalCode": "journal_code",
+    "JournalLib": "journal_lib",
+    "EcritureNum": "ecriture_num",
+    "EcritureDate": "ecriture_date",
+    "CompteNum": "compte_num",
+    "CompteLib": "compte_lib",
+    "CompAuxNum": "comp_aux_num",
+    "CompAuxLib": "comp_aux_lib",
+    "PieceRef": "piece_ref",
+    "PieceDate": "piece_date",
+    "EcritureLib": "ecriture_lib",
+    "Debit": "debit",
+    "Credit": "credit",
+    "EcrtureLet": "lettrage",
+    "DateLet": "date_lettrage",
+    "ValidDate": "valid_date",
+    "Montantdevise": "montant_devise",
+    "Idevise": "devise",
+}
+
 # Mapping type de fichier -> dictionnaire de champs
 FIELD_MAPPINGS = {
     "clients": CLIENT_FIELDS,
@@ -93,6 +116,7 @@ FIELD_MAPPINGS = {
     "commandes_fournisseurs": COMMANDE_FOURNISSEUR_FIELDS,
     "avoirs": AVOIR_FIELDS,
     "historique": HISTORIQUE_FIELDS,
+    "fec": FEC_FIELDS,
 }
 
 # Colonnes Sage qui sont des dates
