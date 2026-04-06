@@ -1,5 +1,11 @@
 """Point d'entrée de l'application Streamlit - Prévisionnel de Trésorerie."""
 
+import sys
+from pathlib import Path
+
+# Ajouter la racine du projet au path pour que les imports 'app.*' fonctionnent
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 import streamlit as st
 
 from app.models.database import get_session, init_db
