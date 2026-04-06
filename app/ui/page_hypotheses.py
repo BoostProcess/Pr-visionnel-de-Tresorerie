@@ -6,7 +6,7 @@ from app.models.assumptions import HypotheseConversion, HypotheseScenario, Saiso
 from app.services.forecast_service import ForecastService
 from app.services.referentiel_service import ReferentielService
 from app.ui.components.filters import MOIS_FR, format_xpf
-from config import SCENARIO_ADJUSTMENTS, TVA_RATES
+from app.config import SCENARIO_ADJUSTMENTS, TVA_RATES
 
 
 def render(session, run_forecast_callback=None):

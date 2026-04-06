@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from app.calculations.forecast_engine import ForecastEngine
 from app.calculations.monthly_aggregator import MonthSummary
 from app.models.cash import LignePrevisionnel
-from config import SCENARIOS
+from app.config import SCENARIOS
 
 
 class ForecastService:

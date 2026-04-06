@@ -4,7 +4,7 @@ from datetime import date
 
 import streamlit as st
 
-from config import SCENARIOS
+from app.config import SCENARIOS
 
 
 MOIS_FR = [

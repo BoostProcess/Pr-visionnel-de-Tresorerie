@@ -7,7 +7,7 @@ from pathlib import Path
 import pandas as pd
 
 from app.imports.field_mappings import FIELD_MAPPINGS, DATE_FIELDS, AMOUNT_FIELDS
-from config import SAGE_CSV_SEPARATOR, SAGE_DATE_FORMATS, SAGE_ENCODING
+from app.config import SAGE_CSV_SEPARATOR, SAGE_DATE_FORMATS, SAGE_ENCODING
 
 
 class SageFileParser:

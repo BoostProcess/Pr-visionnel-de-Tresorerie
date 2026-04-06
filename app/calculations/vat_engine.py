@@ -3,7 +3,7 @@
 from datetime import date
 
 from app.models.cash import LignePrevisionnel
-from config import TVA_RATES
+from app.config import TVA_RATES
 
 
 class VATEngine:

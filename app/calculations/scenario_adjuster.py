@@ -1,6 +1,6 @@
 """Ajustement des prévisions selon le scénario."""
 
-from config import SCENARIO_ADJUSTMENTS
+from app.config import SCENARIO_ADJUSTMENTS
 
 
 class ScenarioAdjuster:

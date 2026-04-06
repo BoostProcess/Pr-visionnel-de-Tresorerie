@@ -14,7 +14,7 @@ from app.models.adjustments import AjustementManuel
 from app.models.cash import LignePrevisionnel, PositionTresorerie
 from app.models.assumptions import HypotheseConversion
 from app.models.versions import VersionMensuelle
-from config import FORECAST_MONTHS, SCENARIOS
+from app.config import FORECAST_MONTHS, SCENARIOS
 
 
 class ForecastEngine:
