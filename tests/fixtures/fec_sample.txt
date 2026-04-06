@@ -1,12 +1,17 @@
-JournalCode	JournalLib	EcritureNum	EcritureDate	CompteNum	CompteLib	CompAuxNum	CompAuxLib	PieceRef	PieceDate	EcritureLib	Debit	Credit	EcrtureLet	DateLet	ValidDate	Montantdevise	Idevise
-VE	Ventes	001	01/03/2026	4110000	Clients	CLI001	Client Alpha SAS	FA2026-001	01/03/2026	Facture mars Client Alpha	500000	0			01/03/2026
-VE	Ventes	001	01/03/2026	7010000	Ventes de marchandises		Ventes	FA2026-001	01/03/2026	Facture mars Client Alpha	0	431034			01/03/2026
-VE	Ventes	001	01/03/2026	4457100	TVA collectée		TVA	FA2026-001	01/03/2026	TVA facture mars	0	68966			01/03/2026
-BQ	Banque	002	15/03/2026	5120000	Banque			RG2026-001	15/03/2026	Règlement Client Alpha	500000	0			15/03/2026
-BQ	Banque	002	15/03/2026	4110000	Clients	CLI001	Client Alpha SAS	RG2026-001	15/03/2026	Règlement Client Alpha	0	500000	AA	15/03/2026	15/03/2026
-VE	Ventes	003	15/03/2026	4110000	Clients	CLI002	Client Beta SARL	FA2026-002	15/03/2026	Facture mars Client Beta	300000	0			15/03/2026
-VE	Ventes	003	15/03/2026	7010000	Ventes de marchandises		Ventes	FA2026-002	15/03/2026	Facture mars Client Beta	0	258621			15/03/2026
-VE	Ventes	003	15/03/2026	4457100	TVA collectée		TVA	FA2026-002	15/03/2026	TVA facture mars Beta	0	41379			15/03/2026
-HA	Achats	004	10/03/2026	4010000	Fournisseurs	FOU001	Fournisseur Gamma	FA2026-101	10/03/2026	Facture achat Gamma	0	200000			10/03/2026
-HA	Achats	004	10/03/2026	6010000	Achats de marchandises		Achats	FA2026-101	10/03/2026	Facture achat Gamma	172414	0			10/03/2026
-HA	Achats	004	10/03/2026	4456600	TVA déductible		TVA	FA2026-101	10/03/2026	TVA achat Gamma	27586	0			10/03/2026
+JournalCode	JournalLib	EcritureNum	EcritureDate	CompteNum	CompteLib	CompAuxNum	CompAuxLib	PieceRef	PieceDate	EcritureLib	Debit	Credit	EcritureLet	DateLet	ValidDate	Montantdevise	Idevise
+VE	Journal des ventes	001	20260301	4110000	Clients	CLI001	Client Alpha SAS	FA2026-001	20260301	Facture mars Client Alpha	500000,00	0,00			20260301
+VE	Journal des ventes	001	20260301	7010000	Ventes de marchandises			FA2026-001	20260301	Facture mars Client Alpha	0,00	431034,00			20260301
+VE	Journal des ventes	001	20260301	4457100	TVA collectee			FA2026-001	20260301	TVA facture mars	0,00	68966,00			20260301
+BQ	Journal de banque	002	20260315	5120000	Banque			RG2026-001	20260315	Reglement Client Alpha	500000,00	0,00			20260315
+BQ	Journal de banque	002	20260315	4110000	Clients	CLI001	Client Alpha SAS	RG2026-001	20260315	Reglement Client Alpha	0,00	500000,00	AA	20260315	20260315
+VE	Journal des ventes	003	20260315	4110000	Clients	CLI002	Client Beta SARL	FA2026-002	20260315	Facture mars Client Beta	300000,00	0,00			20260315
+VE	Journal des ventes	003	20260315	7010000	Ventes de marchandises			FA2026-002	20260315	Facture mars Client Beta	0,00	258621,00			20260315
+VE	Journal des ventes	003	20260315	4457100	TVA collectee			FA2026-002	20260315	TVA facture mars Beta	0,00	41379,00			20260315
+HA	Journal des achats	004	20260310	4010000	Fournisseurs	FOU001	Fournisseur Gamma	FA2026-101	20260310	Facture achat Gamma	0,00	200000,00			20260310
+HA	Journal des achats	004	20260310	6010000	Achats de marchandises			FA2026-101	20260310	Facture achat Gamma	172414,00	0,00			20260310
+HA	Journal des achats	004	20260310	4456600	TVA deductible			FA2026-101	20260310	TVA achat Gamma	27586,00	0,00			20260310
+VE	Journal des ventes	005	20260320	4110000	Clients	CLI001	Client Alpha SAS	FA2026-003	20260320	Facture mars Client Alpha 2	150000,00	0,00			20260320
+VE	Journal des ventes	005	20260320	7010000	Ventes de marchandises			FA2026-003	20260320	Facture mars Client Alpha 2	0,00	129310,00			20260320
+VE	Journal des ventes	005	20260320	4457100	TVA collectee			FA2026-003	20260320	TVA facture mars Alpha 2	0,00	20690,00			20260320
+BQ	Journal de banque	006	20260325	5120000	Banque			RG2026-002	20260325	Reglement partiel Alpha	75000,00	0,00			20260325
+BQ	Journal de banque	006	20260325	4110000	Clients	CLI001	Client Alpha SAS	RG2026-002	20260325	Reglement partiel Alpha	0,00	75000,00			20260325
