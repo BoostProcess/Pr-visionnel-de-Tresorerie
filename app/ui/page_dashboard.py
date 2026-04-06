@@ -58,6 +58,10 @@ def render(forecast_data: dict[str, list[MonthSummary]]):
     # Tableau de synthèse
     forecast_summary_table(summaries, f"Détail mensuel - Scénario {scenario.capitalize()}")
 
+    # Export Excel
+    st.divider()
+    _render_export(forecast_data)
+
 
 def _render_chart(summaries: list[MonthSummary]):
     """Graphique barres + courbe."""
@@ -106,3 +110,19 @@ def _render_scenario_comparison(forecast_data: dict[str, list[MonthSummary]]):
 
     if rows:
         st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+
+
+def _render_export(forecast_data: dict[str, list[MonthSummary]]):
+    """Bouton d'export Excel."""
+    from app.exports.excel_export import ExcelExporter
+
+    st.subheader("Export Excel")
+    if st.button("Générer le fichier Excel", type="primary"):
+        exporter = ExcelExporter()
+        excel_buffer = exporter.export(forecast_data)
+        st.download_button(
+            label="Télécharger le prévisionnel (.xlsx)",
+            data=excel_buffer,
+            file_name="previsionnel_tresorerie.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        )
