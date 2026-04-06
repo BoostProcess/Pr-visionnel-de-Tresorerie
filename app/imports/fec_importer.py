@@ -47,6 +47,7 @@ from pathlib import Path
 import pandas as pd
 from sqlalchemy.orm import Session
 
+from app.models.fec_entry import EcritureFEC
 from app.models.imports_log import ErreurImport, LotImport
 from app.models.invoices import FactureClient, FactureFournisseur
 from app.models.reference import Client, Fournisseur
@@ -133,6 +134,9 @@ class FECImporter:
 
         lot.nb_lignes = len(df)
 
+        # Stocker les écritures FEC brutes en base pour l'analyse financière
+        self._store_raw_entries(df, lot.id)
+
         # Charger les caches de référence
         self._build_caches()
 
@@ -217,6 +221,31 @@ class FECImporter:
                 f"Colonnes trouvées : {', '.join(df.columns.tolist())}"
             )
         return errors
+
+    def _store_raw_entries(self, df: pd.DataFrame, lot_id: int):
+        """Stocke toutes les écritures FEC brutes en base pour l'analyse."""
+        for _, row in df.iterrows():
+            entry = EcritureFEC(
+                journal_code=str(row.get("JournalCode", "")).strip()[:10],
+                journal_lib=str(row.get("JournalLib", "")).strip()[:100],
+                ecriture_num=str(row.get("EcritureNum", "")).strip()[:20],
+                ecriture_date=self._parse_fec_date(row.get("EcritureDate")) or date.today(),
+                compte_num=str(row.get("CompteNum", "")).strip()[:20],
+                compte_lib=str(row.get("CompteLib", "")).strip()[:200],
+                comp_aux_num=str(row.get("CompAuxNum", "")).strip()[:20] or None,
+                comp_aux_lib=str(row.get("CompAuxLib", "")).strip()[:200] or None,
+                piece_ref=str(row.get("PieceRef", "")).strip()[:50],
+                piece_date=self._parse_fec_date(row.get("PieceDate")) or date.today(),
+                ecriture_lib=str(row.get("EcritureLib", "")).strip()[:200],
+                debit=self._parse_fec_amount(row.get("Debit")),
+                credit=self._parse_fec_amount(row.get("Credit")),
+                ecriture_let=str(row.get("EcritureLet", "")).strip()[:20] or None,
+                date_let=self._parse_fec_date(row.get("DateLet")),
+                valid_date=self._parse_fec_date(row.get("ValidDate")),
+                lot_import_id=lot_id,
+            )
+            self._session.add(entry)
+        self._session.flush()
 
     def _build_caches(self):
         """Pré-charge les référentiels existants pour les lookups."""

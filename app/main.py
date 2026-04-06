@@ -22,6 +22,8 @@ st.set_page_config(
 # Navigation sidebar
 PAGES = {
     "Synthèse": "dashboard",
+    "Analyse financière": "analyse_fec",
+    "Balance âgée": "balance_agee",
     "Encaissements": "encaissements",
     "Décaissements": "decaissements",
     "Hypothèses": "hypotheses",
@@ -52,6 +54,14 @@ with get_session() as session:
                 st.session_state["forecast_data"] = {}
 
         render_dashboard(st.session_state.get("forecast_data", {}))
+
+    elif PAGES[page] == "analyse_fec":
+        from app.ui.page_analyse_fec import render as render_analyse
+        render_analyse(session)
+
+    elif PAGES[page] == "balance_agee":
+        from app.ui.page_balance_agee import render as render_balance
+        render_balance(session)
 
     elif PAGES[page] == "encaissements":
         from app.ui.page_encaissements import render as render_enc

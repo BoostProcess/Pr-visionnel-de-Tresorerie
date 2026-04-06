@@ -16,6 +16,7 @@ def engine():
     # Import tous les modèles pour créer les tables
     import app.models.adjustments  # noqa: F401
     import app.models.assumptions  # noqa: F401
+    import app.models.fec_entry  # noqa: F401
     import app.models.cash  # noqa: F401
     import app.models.fixed_charges  # noqa: F401
     import app.models.history  # noqa: F401
