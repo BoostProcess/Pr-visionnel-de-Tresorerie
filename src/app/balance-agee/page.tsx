@@ -24,26 +24,26 @@ function BalanceTable({ data }: { data: BalanceAgeeLine[] }) {
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-slate-200">
-            <th className="text-left py-3 px-2 text-slate-500 font-medium">Code</th>
-            <th className="text-left py-3 px-2 text-slate-500 font-medium">Nom</th>
-            <th className="text-right py-3 px-2 text-slate-500 font-medium">Total</th>
-            <th className="text-right py-3 px-2 text-slate-500 font-medium">Non échu</th>
-            <th className="text-right py-3 px-2 text-slate-500 font-medium">0-30 j</th>
-            <th className="text-right py-3 px-2 text-slate-500 font-medium">30-60 j</th>
-            <th className="text-right py-3 px-2 text-slate-500 font-medium">60-90 j</th>
-            <th className="text-right py-3 px-2 text-slate-500 font-medium">+90 j</th>
+            <th className="text-left py-3 px-2 text-slate-700 font-medium">Code</th>
+            <th className="text-left py-3 px-2 text-slate-700 font-medium">Nom</th>
+            <th className="text-right py-3 px-2 text-slate-700 font-medium">Total</th>
+            <th className="text-right py-3 px-2 text-slate-700 font-medium">Non échu</th>
+            <th className="text-right py-3 px-2 text-slate-700 font-medium">0-30 j</th>
+            <th className="text-right py-3 px-2 text-slate-700 font-medium">30-60 j</th>
+            <th className="text-right py-3 px-2 text-slate-700 font-medium">60-90 j</th>
+            <th className="text-right py-3 px-2 text-slate-700 font-medium">+90 j</th>
           </tr>
         </thead>
         <tbody>
           {data.map((d) => (
             <tr key={d.code} className="border-b border-slate-50 hover:bg-slate-50">
-              <td className="py-2.5 px-2 font-mono text-xs">{d.code}</td>
-              <td className="py-2.5 px-2 font-medium">{d.nom}</td>
-              <td className="py-2.5 px-2 text-right font-semibold">{formatXPF(d.total)}</td>
+              <td className="py-2.5 px-2 font-mono text-xs text-slate-700">{d.code}</td>
+              <td className="py-2.5 px-2 font-medium text-slate-900">{d.nom}</td>
+              <td className="py-2.5 px-2 text-right font-semibold text-slate-900">{formatXPF(d.total)}</td>
               <td className="py-2.5 px-2 text-right text-emerald-600">{d.non_echu ? formatXPF(d.non_echu) : "-"}</td>
               <td className="py-2.5 px-2 text-right text-amber-600">{d.echu_0_30 ? formatXPF(d.echu_0_30) : "-"}</td>
               <td className="py-2.5 px-2 text-right text-orange-600">{d.echu_30_60 ? formatXPF(d.echu_30_60) : "-"}</td>
-              <td className="py-2.5 px-2 text-right text-red-500">{d.echu_60_90 ? formatXPF(d.echu_60_90) : "-"}</td>
+              <td className="py-2.5 px-2 text-right text-red-600">{d.echu_60_90 ? formatXPF(d.echu_60_90) : "-"}</td>
               <td className="py-2.5 px-2 text-right text-red-700 font-medium">{d.echu_plus_90 ? formatXPF(d.echu_plus_90) : "-"}</td>
             </tr>
           ))}
@@ -53,7 +53,7 @@ function BalanceTable({ data }: { data: BalanceAgeeLine[] }) {
             <td className="py-3 px-2 text-right text-emerald-600">{formatXPF(totals.non_echu)}</td>
             <td className="py-3 px-2 text-right text-amber-600">{formatXPF(totals.echu_0_30)}</td>
             <td className="py-3 px-2 text-right text-orange-600">{formatXPF(totals.echu_30_60)}</td>
-            <td className="py-3 px-2 text-right text-red-500">{formatXPF(totals.echu_60_90)}</td>
+            <td className="py-3 px-2 text-right text-red-600">{formatXPF(totals.echu_60_90)}</td>
             <td className="py-3 px-2 text-right text-red-700">{formatXPF(totals.echu_plus_90)}</td>
           </tr>
         </tbody>
@@ -72,7 +72,7 @@ function AgeDonut({ data }: { data: BalanceAgeeLine[] }) {
   ].filter((d) => d.value > 0)
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={220}>
       <PieChart>
         <Pie data={pieData} cx="50%" cy="50%" innerRadius={60} outerRadius={100} dataKey="value" label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(0)}%`}>
           {pieData.map((_, i) => (
@@ -91,8 +91,8 @@ export default function BalanceAgeePage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-slate-900 mb-1">Balance âgée</h1>
-      <p className="text-sm text-slate-500 mb-6">Analyse des créances et dettes par ancienneté</p>
+      <h1 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1">Balance âgée</h1>
+      <p className="text-sm text-slate-700 mb-6">Analyse des créances et dettes par ancienneté</p>
 
       <div className="flex bg-white rounded-lg border border-slate-200 p-1 w-fit mb-6">
         {(["clients", "fournisseurs"] as const).map((t) => (

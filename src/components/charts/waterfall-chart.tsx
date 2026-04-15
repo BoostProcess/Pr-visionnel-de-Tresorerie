@@ -14,12 +14,12 @@ interface WaterfallChartProps {
   height?: number
 }
 
-export function WaterfallChart({ data, height = 350 }: WaterfallChartProps) {
+export function WaterfallChart({ data, height = 280 }: WaterfallChartProps) {
   let running = 0
   const chartData = data.map((item) => {
     if (item.isTotal) {
-      const total = running
-      return { name: item.name, value: total, base: 0, fill: "#3b82f6" }
+      running = item.value
+      return { name: item.name, value: item.value, base: 0, fill: "#3b82f6" }
     }
     const base = running
     running += item.value
@@ -35,8 +35,8 @@ export function WaterfallChart({ data, height = 350 }: WaterfallChartProps) {
     <ResponsiveContainer width="100%" height={height}>
       <BarChart data={chartData} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-        <XAxis dataKey="name" tick={{ fontSize: 11 }} />
-        <YAxis tickFormatter={(v) => `${(v / 1000000).toFixed(1)}M`} tick={{ fontSize: 11 }} />
+        <XAxis dataKey="name" tick={{ fontSize: 10 }} />
+        <YAxis tickFormatter={(v) => `${(v / 1000000).toFixed(1)}M`} tick={{ fontSize: 10 }} />
         <Tooltip
           formatter={(value, name) => {
             if (String(name) === "base") return [null, null]

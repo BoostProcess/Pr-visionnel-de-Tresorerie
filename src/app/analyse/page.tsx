@@ -14,10 +14,10 @@ export default function AnalysePage() {
     { name: "Achats", value: -cr.achats },
     { name: "Chg. ext.", value: -cr.charges_externes },
     { name: "Personnel", value: -cr.charges_personnel },
-    { name: "EBE", value: 0, isTotal: true },
+    { name: "EBE", value: cr.ebe, isTotal: true },
     { name: "Amort.", value: -cr.dotations },
     { name: "Financier", value: cr.resultat_financier },
-    { name: "Rés. net", value: 0, isTotal: true },
+    { name: "Rés. net", value: cr.resultat_net, isTotal: true },
   ]
 
   const sigTable = [
@@ -38,8 +38,8 @@ export default function AnalysePage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-slate-900 mb-1">Analyse financière</h1>
-      <p className="text-sm text-slate-500 mb-6">Reconstitution automatique depuis le FEC</p>
+      <h1 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1">Analyse financière</h1>
+      <p className="text-sm text-slate-600 mb-6">Reconstitution automatique depuis le FEC</p>
 
       {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
@@ -69,15 +69,15 @@ export default function AnalysePage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-slate-200">
-                <th className="text-left py-2 text-slate-500 font-medium">Indicateur</th>
-                <th className="text-right py-2 text-slate-500 font-medium">Montant (XPF)</th>
+                <th className="text-left py-2 text-slate-600 font-medium">Indicateur</th>
+                <th className="text-right py-2 text-slate-600 font-medium">Montant (XPF)</th>
               </tr>
             </thead>
             <tbody>
               {sigTable.map((row, i) => (
                 <tr key={i} className={`border-b border-slate-50 ${row.type === "solde" ? "bg-slate-50 font-semibold" : ""}`}>
                   <td className={`py-2.5 ${row.type === "solde" ? "text-blue-700" : ""}`}>{row.label}</td>
-                  <td className={`py-2.5 text-right ${row.montant < 0 ? "text-red-500" : ""}`}>{formatXPF(row.montant)}</td>
+                  <td className={`py-2.5 text-right ${row.montant < 0 ? "text-red-600" : ""}`}>{formatXPF(row.montant)}</td>
                 </tr>
               ))}
             </tbody>

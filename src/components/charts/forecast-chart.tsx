@@ -20,11 +20,11 @@ export function ForecastBarChart({ data }: ForecastChartProps) {
   }))
 
   return (
-    <ResponsiveContainer width="100%" height={380}>
+    <ResponsiveContainer width="100%" height={280}>
       <ComposedChart data={chartData} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-        <XAxis dataKey="mois" tick={{ fontSize: 11 }} angle={-30} textAnchor="end" height={60} />
-        <YAxis tickFormatter={(v) => `${(v / 1000000).toFixed(1)}M`} tick={{ fontSize: 11 }} />
+        <XAxis dataKey="mois" tick={{ fontSize: 10 }} angle={-30} textAnchor="end" height={60} />
+        <YAxis tickFormatter={(v) => `${(v / 1000000).toFixed(1)}M`} tick={{ fontSize: 10 }} />
         <Tooltip
           formatter={(value, name) => [formatXPF(Number(value ?? 0)), String(name)]}
           contentStyle={{ borderRadius: 8, border: "1px solid #e2e8f0" }}
@@ -51,11 +51,11 @@ export function TresorerieAreaChart({ data }: ForecastChartProps) {
   }))
 
   return (
-    <ResponsiveContainer width="100%" height={250}>
+    <ResponsiveContainer width="100%" height={220}>
       <ComposedChart data={chartData}>
         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-        <XAxis dataKey="mois" tick={{ fontSize: 11 }} angle={-30} textAnchor="end" height={60} />
-        <YAxis tickFormatter={(v) => `${(v / 1000000).toFixed(1)}M`} tick={{ fontSize: 11 }} />
+        <XAxis dataKey="mois" tick={{ fontSize: 10 }} angle={-30} textAnchor="end" height={60} />
+        <YAxis tickFormatter={(v) => `${(v / 1000000).toFixed(1)}M`} tick={{ fontSize: 10 }} />
         <Tooltip formatter={(value) => [formatXPF(Number(value ?? 0)), "Trésorerie"]}
           contentStyle={{ borderRadius: 8, border: "1px solid #e2e8f0" }}
         />
