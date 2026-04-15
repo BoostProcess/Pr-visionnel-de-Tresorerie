@@ -25,7 +25,7 @@ export default function Dashboard() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Synthèse du prévisionnel</h1>
-          <p className="text-sm text-slate-500 mt-1">Vue sur 12 mois glissants</p>
+          <p className="text-sm text-slate-600 mt-1">Vue sur 12 mois glissants</p>
         </div>
         <div className="flex bg-white rounded-lg border border-slate-200 p-1 self-start">
           {scenarios.map((s) => (
@@ -67,10 +67,10 @@ export default function Dashboard() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-slate-200">
-                <th className="text-left py-3 text-slate-500 font-medium">Scénario</th>
-                <th className="text-right py-3 text-slate-500 font-medium">Encaiss.</th>
-                <th className="text-right py-3 text-slate-500 font-medium">Point bas</th>
-                <th className="text-right py-3 text-slate-500 font-medium">Trés. fin</th>
+                <th className="text-left py-3 text-slate-600 font-medium">Scénario</th>
+                <th className="text-right py-3 text-slate-600 font-medium">Encaiss.</th>
+                <th className="text-right py-3 text-slate-600 font-medium">Point bas</th>
+                <th className="text-right py-3 text-slate-600 font-medium">Trés. fin</th>
               </tr>
             </thead>
             <tbody>
@@ -99,12 +99,12 @@ export default function Dashboard() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-slate-200">
-                <th className="text-left py-3 px-2 text-slate-500 font-medium">Mois</th>
-                <th className="text-right py-3 px-2 text-slate-500 font-medium">Trés. début</th>
-                <th className="text-right py-3 px-2 text-slate-500 font-medium">Encaissements</th>
-                <th className="text-right py-3 px-2 text-slate-500 font-medium">Décaissements</th>
-                <th className="text-right py-3 px-2 text-slate-500 font-medium">Solde</th>
-                <th className="text-right py-3 px-2 text-slate-500 font-medium">Trés. fin</th>
+                <th className="text-left py-3 px-2 text-slate-600 font-medium">Mois</th>
+                <th className="text-right py-3 px-2 text-slate-600 font-medium">Trés. début</th>
+                <th className="text-right py-3 px-2 text-slate-600 font-medium">Encaissements</th>
+                <th className="text-right py-3 px-2 text-slate-600 font-medium">Décaissements</th>
+                <th className="text-right py-3 px-2 text-slate-600 font-medium">Solde</th>
+                <th className="text-right py-3 px-2 text-slate-600 font-medium">Trés. fin</th>
               </tr>
             </thead>
             <tbody>

@@ -98,7 +98,7 @@ export default function ImportsPage() {
   return (
     <div>
       <h1 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1">Import des données</h1>
-      <p className="text-sm text-slate-500 mb-6">Importez vos fichiers FEC ou exports Sage 100</p>
+      <p className="text-sm text-slate-600 mb-6">Importez vos fichiers FEC ou exports Sage 100</p>
 
       {/* Zone de drop */}
       <div
@@ -109,7 +109,7 @@ export default function ImportsPage() {
         onDragLeave={() => setDragActive(false)}
         onDrop={handleDrop}
       >
-        <Upload className="w-10 h-10 text-slate-400 mx-auto mb-3" />
+        <Upload className="w-10 h-10 text-slate-600 mx-auto mb-3" />
         <p className="text-base font-medium text-slate-800 mb-2">
           Glissez vos fichiers ici
         </p>
@@ -185,7 +185,7 @@ export default function ImportsPage() {
                     )}
                     <button
                       onClick={() => removeImport(imp.id)}
-                      className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
+                      className="p-1.5 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
                       title="Supprimer"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -201,7 +201,7 @@ export default function ImportsPage() {
       {/* État vide */}
       {imports.length === 0 && (
         <div className="bg-white rounded-xl border border-slate-200 p-8 text-center shadow-sm">
-          <p className="text-slate-500 text-sm">Aucun fichier importé. Déposez un fichier ci-dessus pour commencer.</p>
+          <p className="text-slate-600 text-sm">Aucun fichier importé. Déposez un fichier ci-dessus pour commencer.</p>
         </div>
       )}
     </div>

@@ -11,8 +11,8 @@ export default function EncaissementsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-slate-900 mb-1">Encaissements</h1>
-      <p className="text-sm text-slate-500 mb-6">Détail des encaissements prévisionnels par mois</p>
+      <h1 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1">Encaissements</h1>
+      <p className="text-sm text-slate-600 mb-6">Détail des encaissements prévisionnels par mois</p>
 
       <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm mb-8">
         <div className="flex justify-between items-center mb-4">
@@ -22,8 +22,8 @@ export default function EncaissementsPage() {
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-            <XAxis dataKey="mois" tick={{ fontSize: 11 }} angle={-30} textAnchor="end" height={60} />
-            <YAxis tickFormatter={(v) => `${(v / 1000000).toFixed(1)}M`} tick={{ fontSize: 11 }} />
+            <XAxis dataKey="mois" tick={{ fontSize: 10 }} angle={-30} textAnchor="end" height={60} />
+            <YAxis tickFormatter={(v) => `${(v / 1000000).toFixed(1)}M`} tick={{ fontSize: 10 }} />
             <Tooltip formatter={(v) => [formatXPF(Number(v ?? 0)), "Encaissements"]} contentStyle={{ borderRadius: 8 }} />
             <Bar dataKey="montant" fill="#10b981" radius={[4, 4, 0, 0]} />
           </BarChart>
@@ -35,10 +35,10 @@ export default function EncaissementsPage() {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-slate-200">
-              <th className="text-left py-3 text-slate-500 font-medium">Mois</th>
-              <th className="text-right py-3 text-slate-500 font-medium">Factures clients</th>
-              <th className="text-right py-3 text-slate-500 font-medium">Commandes</th>
-              <th className="text-right py-3 text-slate-500 font-medium">Total</th>
+              <th className="text-left py-3 text-slate-600 font-medium">Mois</th>
+              <th className="text-right py-3 text-slate-600 font-medium">Factures clients</th>
+              <th className="text-right py-3 text-slate-600 font-medium">Commandes</th>
+              <th className="text-right py-3 text-slate-600 font-medium">Total</th>
             </tr>
           </thead>
           <tbody>

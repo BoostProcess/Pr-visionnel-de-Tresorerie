@@ -112,7 +112,7 @@ export default function AjustementsPage() {
         <div className="bg-white rounded-xl border border-blue-200 p-5 shadow-sm mb-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-base font-semibold text-slate-900">Nouvel ajustement</h2>
-            <button onClick={() => { setShowForm(false); resetForm() }} className="p-1 text-slate-400 hover:text-slate-600">
+            <button onClick={() => { setShowForm(false); resetForm() }} className="p-1 text-slate-600 hover:text-slate-600">
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -153,7 +153,7 @@ export default function AjustementsPage() {
       {/* Liste */}
       <div className="bg-white rounded-xl border border-slate-200 shadow-sm">
         {adjustments.length === 0 ? (
-          <p className="text-center text-slate-500 py-12 text-sm">Aucun ajustement.</p>
+          <p className="text-center text-slate-600 py-12 text-sm">Aucun ajustement.</p>
         ) : (
           <div className="divide-y divide-slate-100">
             {adjustments.map((a) => (
@@ -174,7 +174,7 @@ export default function AjustementsPage() {
                     </span>
                   </div>
                 </div>
-                <button onClick={() => setDeleteTarget(a)} className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                <button onClick={() => setDeleteTarget(a)} className="p-2 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
                   <Trash2 className="w-4 h-4" />
                 </button>
               </div>
