@@ -2,7 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/layout/sidebar";
-import { DemoBanner } from "@/components/ui/demo-banner";
+import { DemoBannerWrapper } from "@/components/ui/demo-banner";
+import { DataProvider } from "@/lib/data-context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,13 +27,15 @@ export default function RootLayout({
   return (
     <html lang="fr" className="h-full">
       <body className={`${inter.className} h-full bg-slate-50 text-slate-900`}>
-        <Sidebar />
-        <main className="lg:ml-64 min-h-screen pt-14 lg:pt-0">
-          <DemoBanner />
-          <div className="p-4 lg:p-8 max-w-7xl mx-auto">
-            {children}
-          </div>
-        </main>
+        <DataProvider>
+          <Sidebar />
+          <main className="lg:ml-64 min-h-screen pt-14 lg:pt-0">
+            <DemoBannerWrapper />
+            <div className="p-4 lg:p-8 max-w-7xl mx-auto">
+              {children}
+            </div>
+          </main>
+        </DataProvider>
       </body>
     </html>
   );

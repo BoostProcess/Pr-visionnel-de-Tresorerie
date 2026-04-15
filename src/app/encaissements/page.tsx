@@ -1,11 +1,12 @@
 "use client"
 
-import { demoForecasts } from "@/lib/demo-data"
+import { useData } from "@/lib/data-context"
 import { formatXPF, formatMonth } from "@/lib/utils"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 
 export default function EncaissementsPage() {
-  const data = demoForecasts.central
+  const { forecasts } = useData()
+  const data = forecasts.central || []
   const chartData = data.map((d) => ({ mois: formatMonth(d.mois), montant: d.encaissements }))
   const total = data.reduce((s, d) => s + d.encaissements, 0)
 

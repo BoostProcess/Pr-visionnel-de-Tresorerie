@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { KPICard } from "@/components/ui/kpi-card"
 import { ForecastBarChart, TresorerieAreaChart } from "@/components/charts/forecast-chart"
-import { demoForecasts } from "@/lib/demo-data"
+import { useData } from "@/lib/data-context"
 import { formatXPF, formatMonth } from "@/lib/utils"
 import type { Scenario } from "@/lib/types"
 
@@ -14,8 +14,9 @@ const scenarios: { key: Scenario; label: string }[] = [
 ]
 
 export default function Dashboard() {
+  const { forecasts } = useData()
   const [scenario, setScenario] = useState<Scenario>("central")
-  const data = demoForecasts[scenario]
+  const data = forecasts[scenario] || []
   const pointBas = data.reduce((min, d) => d.tresorerie_fin < min.tresorerie_fin ? d : min, data[0])
   const totalEnc = data.reduce((s, d) => s + d.encaissements, 0)
   const totalDec = data.reduce((s, d) => s + d.decaissements, 0)
@@ -75,7 +76,7 @@ export default function Dashboard() {
             </thead>
             <tbody>
               {scenarios.map((s) => {
-                const sData = demoForecasts[s.key]
+                const sData = forecasts[s.key]
                 const sPb = Math.min(...sData.map((d) => d.tresorerie_fin))
                 const sFin = sData[sData.length - 1].tresorerie_fin
                 const sEnc = sData.reduce((sum, d) => sum + d.encaissements, 0)

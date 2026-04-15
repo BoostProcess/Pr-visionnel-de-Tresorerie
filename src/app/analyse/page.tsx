@@ -2,12 +2,11 @@
 
 import { KPICard } from "@/components/ui/kpi-card"
 import { WaterfallChart } from "@/components/charts/waterfall-chart"
-import { demoKPIs, demoCompteResultat } from "@/lib/demo-data"
+import { useData } from "@/lib/data-context"
 import { formatXPF } from "@/lib/utils"
 
 export default function AnalysePage() {
-  const kpis = demoKPIs
-  const cr = demoCompteResultat
+  const { kpis, compteResultat: cr } = useData()
 
   const sigData = [
     { name: "CA", value: cr.chiffre_affaires, isTotal: false },

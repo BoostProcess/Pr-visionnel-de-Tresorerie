@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts"
-import { demoBalanceClients, demoBalanceFournisseurs } from "@/lib/demo-data"
+import { useData } from "@/lib/data-context"
 import { formatXPF } from "@/lib/utils"
 import type { BalanceAgeeLine } from "@/lib/types"
 
@@ -87,7 +87,8 @@ function AgeDonut({ data }: { data: BalanceAgeeLine[] }) {
 
 export default function BalanceAgeePage() {
   const [tab, setTab] = useState<"clients" | "fournisseurs">("clients")
-  const data = tab === "clients" ? demoBalanceClients : demoBalanceFournisseurs
+  const { balanceClients, balanceFournisseurs } = useData()
+  const data = tab === "clients" ? balanceClients : balanceFournisseurs
 
   return (
     <div>

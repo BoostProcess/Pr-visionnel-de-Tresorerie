@@ -71,3 +71,44 @@ export interface ImportResult {
 }
 
 export type Scenario = "prudent" | "central" | "ambitieux"
+
+/** Opération comptable analysée depuis le FEC */
+export interface OperationComptable {
+  date: string              // YYYY-MM-DD
+  pieceRef: string
+  journal: string
+  libelle: string
+  compteNum: string
+  compteLib: string
+  tiers: string             // CompAuxNum ou vide
+  tiersNom: string          // CompAuxLib ou CompteLib
+  debit: number
+  credit: number
+  solde: number             // débit - crédit
+  lettrage: string
+  categorie: "banque" | "client" | "fournisseur" | "charge" | "produit" | "tresorerie" | "bilan" | "autre"
+  sousCategorie: string     // détail : "vente", "achat", "salaire", "loyer", etc.
+}
+
+/** Mouvement de banque (compte 512) */
+export interface MouvementBanque {
+  date: string
+  libelle: string
+  pieceRef: string
+  tiers: string
+  encaissement: number
+  decaissement: number
+  solde_cumule: number
+}
+
+/** Échéance client ou fournisseur */
+export interface Echeance {
+  tiers: string
+  tiersNom: string
+  pieceRef: string
+  dateFacture: string
+  dateEcheance: string     // estimée si pas d'info
+  montant: number
+  type: "client" | "fournisseur"
+  statut: "ouvert" | "lettré"
+}
