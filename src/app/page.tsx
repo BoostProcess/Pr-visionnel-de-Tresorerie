@@ -194,7 +194,7 @@ export default function Dashboard() {
           <table className="w-full text-xs sm:text-sm border-collapse min-w-[800px]">
             <thead>
               <tr className="border-b border-slate-300 bg-slate-50">
-                <th className="text-left py-3 px-3 text-slate-700 font-semibold sticky left-0 bg-slate-50 min-w-[200px] z-10">
+                <th className="text-left py-3 px-3 text-slate-700 font-semibold sticky-col-header min-w-[200px]">
                   Postes
                 </th>
                 {data.map((d) => (
@@ -214,8 +214,8 @@ export default function Dashboard() {
                 }
                 if (row.style.startsWith("section")) {
                   return (
-                    <tr key={row.key} className={getRowClasses(row.style)}>
-                      <td className="py-2 px-3 sticky left-0 z-10" style={{ backgroundColor: "inherit" }} colSpan={data.length + 2}>
+                    <tr key={row.key} className={`${getRowClasses(row.style)} row-${row.style}`}>
+                      <td className="py-2 px-3 sticky-col" colSpan={data.length + 2}>
                         {row.label}
                       </td>
                     </tr>
@@ -226,8 +226,8 @@ export default function Dashboard() {
                 const total = values.reduce((acc: number, v) => acc + (v ?? 0), 0)
 
                 return (
-                  <tr key={row.key} className={`${getRowClasses(row.style)} border-b border-slate-50 hover:bg-slate-50/50`}>
-                    <td className="py-2 px-3 sticky left-0 z-10 whitespace-nowrap" style={{ backgroundColor: "inherit" }}>
+                  <tr key={row.key} className={`${getRowClasses(row.style)} row-${row.style} border-b border-slate-50`}>
+                    <td className="py-2 px-3 sticky-col whitespace-nowrap">
                       {row.label}
                     </td>
                     {values.map((val, i) => (

@@ -16,3 +16,28 @@ body {
 table td, table th {
   color: #1e293b;
 }
+
+/* Sticky first column with opaque background and shadow */
+.sticky-col {
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  background-color: white;
+  box-shadow: 4px 0 8px -2px rgba(0, 0, 0, 0.08);
+}
+
+.sticky-col-header {
+  position: sticky;
+  left: 0;
+  z-index: 11;
+  background-color: #f8fafc;
+  box-shadow: 4px 0 8px -2px rgba(0, 0, 0, 0.08);
+}
+
+/* Row-specific sticky backgrounds */
+tr.row-header-blue .sticky-col { background-color: #eff6ff; }
+tr.row-total-green .sticky-col { background-color: #ecfdf5; }
+tr.row-total-red .sticky-col { background-color: #fef2f2; }
+tr.row-total-bold .sticky-col { background-color: #f1f5f9; }
+tr.row-section-green .sticky-col { background-color: #f0fdf4; }
+tr.row-section-red .sticky-col { background-color: #fef2f2; }
