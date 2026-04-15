@@ -5,6 +5,7 @@ export interface MonthForecast {
   decaissements: number
   solde: number
   tresorerie_fin: number
+  type?: "realise" | "previsionnel"  // réalisé = historique comptable, prévisionnel = projection
 }
 
 export interface KPIs {
