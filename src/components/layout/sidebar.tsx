@@ -28,6 +28,7 @@ const navigation = [
   { name: "Hypothèses", href: "/hypotheses", icon: Settings },
   { name: "Imports", href: "/imports", icon: Upload },
   { name: "Ajustements", href: "/ajustements", icon: PenLine },
+  { name: "Paramètres comptes", href: "/parametres", icon: Settings },
 ]
 
 export default function Sidebar() {
