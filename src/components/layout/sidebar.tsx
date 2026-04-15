@@ -14,11 +14,13 @@ import {
   Scale,
   Menu,
   X,
+  Building2,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navigation = [
   { name: "Synthèse", href: "/", icon: LayoutDashboard },
+  { name: "Prévisions métier", href: "/previsions", icon: Building2 },
   { name: "Analyse financière", href: "/analyse", icon: BarChart3 },
   { name: "Balance âgée", href: "/balance-agee", icon: Scale },
   { name: "Encaissements", href: "/encaissements", icon: TrendingUp },
