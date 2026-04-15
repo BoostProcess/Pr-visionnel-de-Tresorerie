@@ -18,3 +18,7 @@ data/*.csv
 .pytest_cache/
 htmlcov/
 .coverage
+node_modules/
+.next/
+out/
+next-env.d.ts
