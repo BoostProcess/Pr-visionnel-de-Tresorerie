@@ -44,12 +44,12 @@ export default function DecaissementsPage() {
           </thead>
           <tbody>
             {data.map((d) => (
-              <tr key={d.mois} className="border-b border-slate-50 hover:bg-slate-50">
-                <td className="py-3 font-medium">{formatMonth(d.mois)}</td>
-                <td className="py-3 text-right">{formatXPF(Math.round(d.decaissements * 0.55))}</td>
-                <td className="py-3 text-right">{formatXPF(Math.round(d.decaissements * 0.30))}</td>
-                <td className="py-3 text-right">{formatXPF(Math.round(d.decaissements * 0.15))}</td>
-                <td className="py-3 text-right font-bold text-red-500">{formatXPF(d.decaissements)}</td>
+              <tr key={d.mois} className="border-b border-slate-100 hover:bg-slate-50">
+                <td className="py-3 font-medium text-slate-900">{formatMonth(d.mois)}</td>
+                <td className="py-3 text-right text-slate-700">{formatXPF(Math.round(d.decaissements * 0.55))}</td>
+                <td className="py-3 text-right text-slate-700">{formatXPF(Math.round(d.decaissements * 0.30))}</td>
+                <td className="py-3 text-right text-slate-700">{formatXPF(Math.round(d.decaissements * 0.15))}</td>
+                <td className="py-3 text-right font-bold text-red-700">{formatXPF(d.decaissements)}</td>
               </tr>
             ))}
           </tbody>

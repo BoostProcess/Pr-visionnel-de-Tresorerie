@@ -81,10 +81,10 @@ export default function Dashboard() {
                 const sEnc = sData.reduce((sum, d) => sum + d.encaissements, 0)
                 return (
                   <tr key={s.key} className="border-b border-slate-100">
-                    <td className="py-3 font-medium">{s.label}</td>
-                    <td className="py-3 text-right">{formatXPF(sEnc)}</td>
-                    <td className={`py-3 text-right ${sPb < 0 ? "text-red-600" : ""}`}>{formatXPF(sPb)}</td>
-                    <td className="py-3 text-right font-medium">{formatXPF(sFin)}</td>
+                    <td className="py-3 font-medium text-slate-900">{s.label}</td>
+                    <td className="py-3 text-right text-slate-700">{formatXPF(sEnc)}</td>
+                    <td className={`py-3 text-right font-medium ${sPb < 0 ? "text-red-700" : "text-slate-700"}`}>{formatXPF(sPb)}</td>
+                    <td className="py-3 text-right font-bold text-slate-900">{formatXPF(sFin)}</td>
                   </tr>
                 )
               })}
@@ -109,13 +109,13 @@ export default function Dashboard() {
             </thead>
             <tbody>
               {data.map((d) => (
-                <tr key={d.mois} className="border-b border-slate-50 hover:bg-slate-50">
-                  <td className="py-3 px-2 font-medium">{formatMonth(d.mois)}</td>
-                  <td className="py-3 px-2 text-right">{formatXPF(d.tresorerie_debut)}</td>
-                  <td className="py-3 px-2 text-right text-emerald-600">{formatXPF(d.encaissements)}</td>
-                  <td className="py-3 px-2 text-right text-red-500">{formatXPF(d.decaissements)}</td>
-                  <td className={`py-3 px-2 text-right font-medium ${d.solde < 0 ? "text-red-600" : "text-emerald-600"}`}>{formatXPF(d.solde)}</td>
-                  <td className={`py-3 px-2 text-right font-bold ${d.tresorerie_fin < 0 ? "text-red-600" : ""}`}>{formatXPF(d.tresorerie_fin)}</td>
+                <tr key={d.mois} className="border-b border-slate-100 hover:bg-slate-50">
+                  <td className="py-3 px-2 font-medium text-slate-900">{formatMonth(d.mois)}</td>
+                  <td className="py-3 px-2 text-right text-slate-700">{formatXPF(d.tresorerie_debut)}</td>
+                  <td className="py-3 px-2 text-right text-emerald-700 font-medium">{formatXPF(d.encaissements)}</td>
+                  <td className="py-3 px-2 text-right text-red-600 font-medium">{formatXPF(d.decaissements)}</td>
+                  <td className={`py-3 px-2 text-right font-semibold ${d.solde < 0 ? "text-red-700" : "text-emerald-700"}`}>{formatXPF(d.solde)}</td>
+                  <td className={`py-3 px-2 text-right font-bold ${d.tresorerie_fin < 0 ? "text-red-700" : "text-slate-900"}`}>{formatXPF(d.tresorerie_fin)}</td>
                 </tr>
               ))}
             </tbody>

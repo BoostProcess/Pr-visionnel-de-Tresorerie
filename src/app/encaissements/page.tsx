@@ -43,11 +43,11 @@ export default function EncaissementsPage() {
           </thead>
           <tbody>
             {data.map((d) => (
-              <tr key={d.mois} className="border-b border-slate-50 hover:bg-slate-50">
-                <td className="py-3 font-medium">{formatMonth(d.mois)}</td>
-                <td className="py-3 text-right">{formatXPF(Math.round(d.encaissements * 0.75))}</td>
-                <td className="py-3 text-right">{formatXPF(Math.round(d.encaissements * 0.25))}</td>
-                <td className="py-3 text-right font-bold text-emerald-600">{formatXPF(d.encaissements)}</td>
+              <tr key={d.mois} className="border-b border-slate-100 hover:bg-slate-50">
+                <td className="py-3 font-medium text-slate-900">{formatMonth(d.mois)}</td>
+                <td className="py-3 text-right text-slate-700">{formatXPF(Math.round(d.encaissements * 0.75))}</td>
+                <td className="py-3 text-right text-slate-700">{formatXPF(Math.round(d.encaissements * 0.25))}</td>
+                <td className="py-3 text-right font-bold text-emerald-700">{formatXPF(d.encaissements)}</td>
               </tr>
             ))}
           </tbody>
