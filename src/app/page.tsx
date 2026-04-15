@@ -22,17 +22,17 @@ export default function Dashboard() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Synthèse du prévisionnel</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Synthèse du prévisionnel</h1>
           <p className="text-sm text-slate-500 mt-1">Vue sur 12 mois glissants</p>
         </div>
-        <div className="flex bg-white rounded-lg border border-slate-200 p-1">
+        <div className="flex bg-white rounded-lg border border-slate-200 p-1 self-start">
           {scenarios.map((s) => (
             <button
               key={s.key}
               onClick={() => setScenario(s.key)}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                 scenario === s.key
                   ? "bg-blue-600 text-white shadow-sm"
                   : "text-slate-600 hover:bg-slate-50"
@@ -44,7 +44,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-6 sm:mb-8">
         <KPICard label="Trésorerie actuelle" value={data[0].tresorerie_debut} />
         <KPICard label="Trésorerie fin" value={data[data.length - 1].tresorerie_fin} />
         <KPICard label="Point bas" value={pointBas.tresorerie_fin} delta={formatMonth(pointBas.mois)} trend={pointBas.tresorerie_fin < 0 ? "down" : "neutral"} />

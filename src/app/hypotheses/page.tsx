@@ -13,12 +13,12 @@ export default function HypothesesPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Hypothèses</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Hypothèses</h1>
           <p className="text-sm text-slate-500 mt-1">Paramétrez les scénarios et hypothèses de calcul</p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-2 sm:gap-3 self-start">
           <button onClick={handleSave} className="flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
             <Save className="w-4 h-4" />
             {saved ? "Sauvegardé !" : "Sauvegarder"}

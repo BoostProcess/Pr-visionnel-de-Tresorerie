@@ -42,21 +42,21 @@ export default function AnalysePage() {
       <p className="text-sm text-slate-500 mb-6">Reconstitution automatique depuis le FEC</p>
 
       {/* KPIs */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
         <KPICard label="Chiffre d'affaires" value={kpis.chiffre_affaires} />
         <KPICard label="Marge brute" value={kpis.marge_brute} delta={`${kpis.taux_marge_brute}%`} trend="up" />
         <KPICard label="EBE" value={kpis.ebe} delta={`${kpis.taux_ebe}%`} trend="up" />
         <KPICard label="Résultat net" value={kpis.resultat_net} />
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
         <KPICard label="CAF" value={kpis.caf} />
         <KPICard label="BFR" value={kpis.bfr} />
         <KPICard label="DSO (délai clients)" value={kpis.dso_jours} format="days" />
         <KPICard label="DPO (délai fournisseurs)" value={kpis.dpo_jours} format="days" />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
         {/* Waterfall SIG */}
         <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
           <h2 className="text-lg font-semibold text-slate-900 mb-4">Du CA au Résultat Net</h2>
