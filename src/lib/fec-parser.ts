@@ -439,77 +439,121 @@ function buildFluxTresorerie(ecritures: EcritureFEC[], cr: CompteResultat): Flux
   }
 }
 
-// ── Prévisionnel (projection sur 12 mois depuis les données FEC) ──
+// ── Construction du prévisionnel : RÉALISÉ (FEC) + PRÉVISIONNEL (projection) ──
 
 function buildForecasts(ecritures: EcritureFEC[], kpis: KPIs): Record<string, MonthForecast[]> {
-  // Calculer le CA mensuel moyen depuis les écritures
-  const caMensuel = new Map<string, number>()
-  const decMensuel = new Map<string, number>()
+  // ═══ PARTIE 1 : MOIS RÉALISÉS (depuis les comptes 512 banque) ═══
+  // On extrait les vrais encaissements/décaissements passés en banque
+  const bankByMonth = new Map<string, { enc: number; dec: number }>()
 
   for (const e of ecritures) {
+    if (!e.compteNum.startsWith("512") && !e.compteNum.startsWith("514") && !e.compteNum.startsWith("53")) continue
     if (!e.ecritureDate) continue
-    const mois = e.ecritureDate.slice(0, 7) // YYYY-MM
-    const c = e.compteNum
+    const mois = e.ecritureDate.slice(0, 7)
 
-    if (c.startsWith("70")) {
-      caMensuel.set(mois, (caMensuel.get(mois) || 0) + (e.credit - e.debit))
-    }
-    if (c.startsWith("40") || c.startsWith("6")) {
-      decMensuel.set(mois, (decMensuel.get(mois) || 0) + (e.debit - e.credit))
-    }
+    if (!bankByMonth.has(mois)) bankByMonth.set(mois, { enc: 0, dec: 0 })
+    const entry = bankByMonth.get(mois)!
+    // Débit sur 512 = encaissement (entrée d'argent)
+    // Crédit sur 512 = décaissement (sortie d'argent)
+    if (e.debit > 0) entry.enc += e.debit
+    if (e.credit > 0) entry.dec += e.credit
   }
 
-  // Moyenne mensuelle
-  const moisCA = [...caMensuel.values()]
-  const moisDec = [...decMensuel.values()]
-  const avgCA = moisCA.length > 0 ? Math.round(moisCA.reduce((a, b) => a + b, 0) / moisCA.length) : 0
-  const avgDec = moisDec.length > 0 ? Math.round(moisDec.reduce((a, b) => a + b, 0) / moisDec.length) : 0
+  // Trier les mois réalisés chronologiquement
+  const sortedRealMonths = [...bankByMonth.keys()].sort()
 
-  const tresoInitiale = kpis.tresorerie_nette || 0
+  // Construire les mois réalisés avec rolling cash
+  const realMonths: MonthForecast[] = []
+  // Trésorerie de départ = solde bancaire du début du 1er mois
+  // On le calcule comme le solde fin du dernier mois réalisé - ce qui a bougé
+  let tresoStart = 0
+  if (sortedRealMonths.length > 0) {
+    // Calculer le solde bancaire à la fin du dernier mois
+    let soldeBanque = 0
+    for (const e of ecritures) {
+      if (!e.compteNum.startsWith("512") && !e.compteNum.startsWith("514") && !e.compteNum.startsWith("53")) continue
+      soldeBanque += e.debit - e.credit
+    }
+    // Remonter au début : solde fin - tous les flux = solde début
+    const totalEnc = [...bankByMonth.values()].reduce((s, v) => s + v.enc, 0)
+    const totalDec = [...bankByMonth.values()].reduce((s, v) => s + v.dec, 0)
+    tresoStart = soldeBanque - (totalEnc - totalDec)
+  }
 
-  // Générer 12 mois pour chaque scénario
-  const now = new Date()
-  const startMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1)
+  let treso = tresoStart
+  for (const mois of sortedRealMonths) {
+    const entry = bankByMonth.get(mois)!
+    const solde = entry.enc - entry.dec
+    const tresoFin = treso + solde
+    realMonths.push({
+      mois,
+      tresorerie_debut: treso,
+      encaissements: entry.enc,
+      decaissements: entry.dec,
+      solde,
+      tresorerie_fin: tresoFin,
+      type: "realise",
+    })
+    treso = tresoFin
+  }
 
-  function generateScenario(
-    encMultiplier: number,
-    decMultiplier: number,
-    delayDays: number,
-  ): MonthForecast[] {
+  // ═══ PARTIE 2 : MOIS PRÉVISIONNELS (projection depuis les moyennes) ═══
+  // Calculer les moyennes mensuelles d'encaissement/décaissement réels
+  const realEnc = realMonths.map((m) => m.encaissements)
+  const realDec = realMonths.map((m) => m.decaissements)
+  const avgEnc = realEnc.length > 0 ? Math.round(realEnc.reduce((a, b) => a + b, 0) / realEnc.length) : 0
+  const avgDec = realDec.length > 0 ? Math.round(realDec.reduce((a, b) => a + b, 0) / realDec.length) : 0
+
+  // Le prévisionnel démarre après le dernier mois réalisé
+  const lastRealMonth = sortedRealMonths[sortedRealMonths.length - 1]
+  const tresoDepart = realMonths.length > 0 ? realMonths[realMonths.length - 1].tresorerie_fin : (kpis.tresorerie_nette || 0)
+
+  // Mois de départ du prévisionnel
+  let prevStart: Date
+  if (lastRealMonth) {
+    const [y, m] = lastRealMonth.split("-").map(Number)
+    prevStart = new Date(y, m, 1) // Mois suivant le dernier réalisé
+  } else {
+    const now = new Date()
+    prevStart = new Date(now.getFullYear(), now.getMonth() + 1, 1)
+  }
+
+  const seasonality = [0.85, 0.90, 1.0, 1.05, 1.1, 1.0, 0.8, 0.7, 0.95, 1.1, 1.15, 1.2]
+
+  function generatePrevisionnel(encMul: number, decMul: number): MonthForecast[] {
     const months: MonthForecast[] = []
-    let treso = tresoInitiale
+    let t = tresoDepart
 
     for (let i = 0; i < 12; i++) {
-      const m = new Date(startMonth.getFullYear(), startMonth.getMonth() + i, 1)
-      const moisStr = m.toISOString().slice(0, 7)
+      const m = new Date(prevStart.getFullYear(), prevStart.getMonth() + i, 1)
+      const moisStr = `${m.getFullYear()}-${String(m.getMonth() + 1).padStart(2, "0")}`
+      const factor = seasonality[m.getMonth()]
 
-      // Variation saisonnière simple
-      const monthIdx = m.getMonth()
-      const seasonality = [0.85, 0.90, 1.0, 1.05, 1.1, 1.0, 0.8, 0.7, 0.95, 1.1, 1.15, 1.2]
-      const factor = seasonality[monthIdx]
-
-      const enc = Math.round(avgCA * encMultiplier * factor)
-      const dec = Math.round(avgDec * decMultiplier * factor * 0.95)
+      const enc = Math.round(avgEnc * encMul * factor)
+      const dec = Math.round(avgDec * decMul * factor * 0.95)
       const solde = enc - dec
-      const tresoFin = treso + solde
+      const tresoFin = t + solde
 
       months.push({
         mois: moisStr,
-        tresorerie_debut: treso,
+        tresorerie_debut: t,
         encaissements: enc,
         decaissements: dec,
         solde,
         tresorerie_fin: tresoFin,
+        type: "previsionnel",
       })
-      treso = tresoFin
+      t = tresoFin
     }
     return months
   }
 
+  // ═══ ASSEMBLAGE : réalisé + prévisionnel pour chaque scénario ═══
+  // Le réalisé est identique pour les 3 scénarios (c'est du passé)
   return {
-    prudent: generateScenario(0.85, 1.05, 15),
-    central: generateScenario(1.0, 1.0, 0),
-    ambitieux: generateScenario(1.15, 0.95, -5),
+    prudent: [...realMonths, ...generatePrevisionnel(0.85, 1.05)],
+    central: [...realMonths, ...generatePrevisionnel(1.0, 1.0)],
+    ambitieux: [...realMonths, ...generatePrevisionnel(1.15, 0.95)],
   }
 }
 
